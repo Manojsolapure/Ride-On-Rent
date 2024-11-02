@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Rental System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            background-image: url('{{ url_for('static', filename='images/man1.png') }}'); /* Background image */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            color: white; /* Default text color */
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em; /* Initial size of the heading */
+            color: #FFD700; /* Initial color */
+            margin-bottom: 20px; /* Space below the heading */
+            animation: change 5s infinite; /* Apply the animation */
+        }
+
+        @keyframes change {
+            0% {
+                font-size: 3em;
+                color: #FFD700; /* Gold */
+            }
+            25% {
+                font-size: 3.5em; /* Increase size */
+                color: #FF4500; /* Orange Red */
+            }
+            50% {
+                font-size: 4em; /* Further increase size */
+                color: #32CD32; /* Lime Green */
+            }
+            75% {
+                font-size: 3.5em; /* Decrease size */
+                color: #1E90FF; /* Dodger Blue */
+            }
+            100% {
+                font-size: 3em; /* Back to original size */
+                color: #FFD700; /* Back to original color */
+            }
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for the links */
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px; /* Set a fixed width for the container */
+            margin: auto; /* Center the container */
+        }
+        a {
+            display: block; /* Stack links vertically */
+            margin: 10px 0; /* Space between links */
+            padding: 10px;
+            text-decoration: none; /* Remove underline */
+            color: white; /* Link color */
+            background-color: #007BFF; /* Button color */
+            text-align: center;
+            border-radius: 5px; /* Rounded corners */
+        }
+        a:hover {
+            background-color: #0056b3; /* Darker on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Bike and Car Rental System</h1>
+    <div class="container">
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </div>
+</body>
+</html>

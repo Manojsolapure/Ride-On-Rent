@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            background-image: url('{{ url_for('static', filename='images/man2.png') }}'); /* Background image */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            color: white; /* Default text color */
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px; /* Space below the heading */
+            font-size: 2.5em; /* Heading size */
+        }
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for the form */
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px; /* Set a fixed width for the container */
+        }
+        label {
+            display: block; /* Stack labels and inputs */
+            margin: 10px 0 5px; /* Space around labels */
+        }
+        select, input[type="date"] {
+            width: 100%; /* Full width inputs */
+            padding: 10px;
+            margin-bottom: 15px; /* Space below inputs */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+        }
+        button {
+            width: 100%; /* Full width button */
+            padding: 10px;
+            background-color: #007BFF; /* Button color */
+            color: white; /* Text color */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor */
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>User Dashboard</h1>
+    <div class="form-container">
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <label for="city">Select City:</label>
+            <select name="city" id="city" required>
+                <option value="a">City A</option>
+                <option value="b">City B</option>
+                <option value="c">City C</option>
+            </select>
+            
+            <label for="from_date">From Date:</label>
+            <input type="date" name="from_date" required>
+            
+            <label for="to_date">To Date:</label>
+            <input type="date" name="to_date" required>
+            
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>

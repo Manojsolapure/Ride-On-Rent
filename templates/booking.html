@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Booking Vehicle</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full viewport height */
+            background-image: url('{{ url_for('static', filename='images/man4.png') }}');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .booking-container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 400px;
+            background-color: rgba(7, 5, 5, 0.9);
+            text-align: center;
+        }
+
+        .vehicle-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .payment-options {
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Success message container styles */
+        #success-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: rgba(11, 2, 2, 0.9);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        #success-message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <h2>Booking for: {{ vehicle[2] }}</h2>
+        <img src="{{ url_for('static', filename='images/p' + vehicle[0]|string) }}.jpeg" alt="Vehicle {{ vehicle[0] }}" class="vehicle-image">
+        <p>Amount: ${{ vehicle[3] }}</p>
+        <p>ID: {{ vehicle[0] }}</p>
+
+        <div class="payment-options">
+            <h3>Payment Options</h3>
+            <label>
+                <input type="radio" name="payment" value="card" onclick="showPaymentFields()"> Pay by Card
+            </label><br>
+            <label>
+                <input type="radio" name="payment" value="upi" onclick="showPaymentFields()"> Pay by UPI
+            </label><br>
+            <label>
+                <input type="radio" name="payment" value="scanner" onclick="showPaymentFields()"> Scan QR Code
+            </label><br>
+
+            <div id="card-fields" class="hidden">
+                <input type="text" placeholder="Card Number" id="card-number"><br>
+                <input type="text" placeholder="Expiry Date (MM/YY)" id="expiry-date"><br>
+                <input type="text" placeholder="CVV" id="cvv"><br>
+            </div>
+
+            <div id="upi-field" class="hidden">
+                <input type="text" placeholder="Enter UPI ID" id="upi-id"><br>
+            </div>
+
+            <div id="scanner-field" class="hidden">
+                <img src="{{ url_for('static', filename='images/amar.jpeg') }}" alt="QR Scanner" class="scanner-image">
+            </div>
+
+            <button class="button" id="pay-button" onclick="payBill()">Pay Bill</button>
+        </div>
+    </div>
+
+    <div id="success-container">
+        <h3 id="success-message">Successful Booking!</h3>
+        <p>Your vehicle has been booked.</p>
+        <button class="button" onclick="closeSuccessMessage()">Close</button>
+    </div>
+
+    <script>
+        function showPaymentFields() {
+            // Hide all payment fields
+            document.getElementById('card-fields').classList.add('hidden');
+            document.getElementById('upi-field').classList.add('hidden');
+            document.getElementById('scanner-field').classList.add('hidden');
+
+            // Show relevant fields based on selected payment option
+            const paymentOption = document.querySelector('input[name="payment"]:checked');
+            if (paymentOption) {
+                if (paymentOption.value === 'card') {
+                    document.getElementById('card-fields').classList.remove('hidden');
+                } else if (paymentOption.value === 'upi') {
+                    document.getElementById('upi-field').classList.remove('hidden');
+                } else if (paymentOption.value === 'scanner') {
+                    document.getElementById('scanner-field').classList.remove('hidden');
+                }
+            }
+        }
+
+        function payBill() {
+    // Directly display success message without making any fetch call
+    const successContainer = document.getElementById('success-container');
+    successContainer.style.display = 'block';
+    successContainer.querySelector('#success-message').textContent = "Payment successful! Your vehicle has been booked.";
+}
+
+function closeSuccessMessage() {
+    document.getElementById('success-container').style.display = 'none';
+}
+
+    </script>
+</body>
+</html>
